@@ -1,0 +1,6 @@
+# Common
+-r requirements.txt
+
+# Formatting
+boto3
+black

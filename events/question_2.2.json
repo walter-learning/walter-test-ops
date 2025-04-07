@@ -1,0 +1,19 @@
+{
+    "question": "2",
+    "agent": "anais.garnier@walter-learning.com",
+    "callDurationInSeconds": "587",
+    "callBackDate": null,
+    "callEnd": "07/04/2025 11:22:09",
+    "callId": "102344028",
+    "callResult": "CONNECTED",
+    "callStart": "07/04/2025 11:26:09",
+    "callType": "campaignOutboundCall",
+    "campaignId": "A",
+    "campaignName": "Campagne A",
+    "contactId": "789864ba-9043-45c9-8969-00557cc0db25",
+    "contactPhone": "+33680181966",
+    "conversationDuration": "567",
+    "displayedPhoneNumber": "+33647331243",
+    "wrapupComment": "Bloquer au début de la formation",
+    "wrapup": "support"
+}
