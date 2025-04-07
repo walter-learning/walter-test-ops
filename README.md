@@ -171,7 +171,7 @@ You can test it using the command
 sh run.sh -q 3.0
 ```
 
-#### Q2.1 : Sales from each team
+#### Q3.1 : Sales from each team
 
 Our sales ops teams needs some insights to complete its reporting, they need the number of sales
 from each team as well as the amount, group by status to identify the number of unsubscription.
@@ -183,7 +183,7 @@ sh run.sh -q 3.1
 ```
 
 
-#### Q2.2 : Sales progression over the month
+#### Q3.2 : Sales progression over the month
 
 To help our sales managers, we were asked to create a tool that displays an agent's progress toward
 their goal from day to day over a month. Our frontend developer has started to integrate this new 
