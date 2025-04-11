@@ -17,7 +17,7 @@ class VoiceAPI:
         self.session = requests.Session()
         self.session.headers.update({"X-API-KEY": REMOTE_API_KEY})
 
-    def list_contacts(self, campaign_id: str | None = None):
+    def list_contacts(self, campaign_id: str | None = None) -> list[Contact]:
         response = self.session.get(
             f"{self.host}/voice/contacts", params={"campaignId": campaign_id}
         )
@@ -26,13 +26,13 @@ class VoiceAPI:
         ), f"Failed to get contact : [{response.status_code}] {response.text}"
         return [Contact.model_validate(contact) for contact in response.json()]
 
-    def get_contact(self, contact_id: str):
+    def get_contact(self, contact_id: str) -> Contact:
         response = self.session.get(f"{self.host}/voice/contacts/{contact_id}")
         assert (
             response.status_code == 200
         ), f"Failed to get contact : [{response.status_code}] {response.text}"
         return Contact.model_validate(response.json())
 
-    def update_contact(self, instance: Contact):
+    def update_contact(self, instance: Contact) -> Contact:
         # As a "dummy" API, we will just return the instance
         return instance

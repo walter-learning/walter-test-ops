@@ -36,15 +36,13 @@ def handle(event: Event, context):
         voice_api.get_contact(contact_id=event.contactId) if event.contactId else None
     )
     if voice_contact:
-        print(f"🔵 Contact information :")
-        print(voice_contact.model_dump_json(indent=4))
-
         # ------------------------------------------------------------
         # STEP 1 : If callBackDate was set to tomorrow or after update the retryDate
         if (event.wrapup or "").lower() == "rappel":
+            print(f"🔵 The callback date is set to `{event.callBackDate}`")
             if (
                 event.callBackDate
-                and event.callBackDate <= datetime.today() + timedelta(1)
+                and event.callBackDate <= datetime.today() + timedelta(days=1)
             ):
                 print(f"🔵 Update retryDate to `{event.callBackDate}`")
                 voice_contact.retryDate = event.callBackDate
@@ -53,6 +51,15 @@ def handle(event: Event, context):
         # ------------------------------------------------------------
         # STEP 2 : If Support in wrapUp, assign the support agent with the least number of contacts in campaign B
         elif "support" in (event.wrapup or "").lower():
-            ...
+            assigned_agent_username = None
+            agents_support: list[crm.Agent] = crm_api.list_agents(team="support")
+            contacts_campaignB: list[v.Contact] = voice_api.list_contacts(
+                campaign_id="B"
+            )
+            # Q2.1 : Assign the contact to the support agent with the least number of contacts in campaign B
+            # ... <<<<<<<<<<<<
+            print("🔵 Assign to agent", assigned_agent_username)
+            voice_contact.assignedAgent = assigned_agent_username
+            voice_api.update_contact(instance=voice_contact)
 
     return {}

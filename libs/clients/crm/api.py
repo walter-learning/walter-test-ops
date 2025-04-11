@@ -17,19 +17,19 @@ class CRMAPI:
         self.session = requests.Session()
         self.session.headers.update({"X-API-KEY": REMOTE_API_KEY})
 
-    def list_contacts(self):
+    def list_contacts(self) -> list[Contact]:
         response = self.session.get(f"{self.host}/crm/contacts")
         assert (
             response.status_code == 200
         ), f"Failed to get contact : [{response.status_code}] {response.text}"
         return [Contact.model_validate(contact) for contact in response.json()]
 
-    def list_agents(self, team: str | None = None):
+    def list_agents(self, team: str | None = None) -> list[Agent]:
         response = self.session.get(f"{self.host}/crm/agents", params={"team": team})
         assert (
             response.status_code == 200
         ), f"Failed to get contact : [{response.status_code}] {response.text}"
         return [Agent.model_validate(agent) for agent in response.json()]
 
-    def send_mail(self, email: str, subject: str, body: str):
+    def send_mail(self, email: str, subject: str, body: str) -> None:
         print(f"⬆️ Sending email to {email} with subject {subject}")

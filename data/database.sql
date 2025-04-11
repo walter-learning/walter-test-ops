@@ -27,9 +27,7 @@ CREATE TABLE "agent" (
 CREATE TABLE "team" (
     "id" integer,
     "name" varchar,
-    "manager_id" integer,
-    PRIMARY KEY (id),
-    FOREIGN KEY ("manager_id") REFERENCES "agent"("id")
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE "agent_team" (

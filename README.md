@@ -2,8 +2,8 @@
 
 ## Initial setup
 
-After cloning the repo, create a new file `.env` from `.env.dist` and fills in the 
-variable using the values you were provided with.
+After cloning the repo, create a new file `.env` and copy the content from `.env.dist`, then 
+fills in the  variables using the values you were provided with.
 
 Then, ensure you have Docker up and running and run the following command to build and test 
 the AWS Lambda environnement :
@@ -133,9 +133,8 @@ class Event(BaseEvent):
 
 #### Q2.1 : Schedule the next call
 
-The first step of our post_call is to detect if the agent did request to schedule another call later
-but with a twist: it is forbidden to plan a call for the same day so we have to ensure the callbackDate
-is set at least for tomorrow.
+The first step of our post_call is to detect if the agent requested to schedule another call later. This is done by 
+setting the attribute `retryDate` of the contact to the given date when the callback should be triggered.
 
 A member from our team did implement this step before going on holydays but it doesn't seems to work at all...
 
@@ -149,8 +148,8 @@ sh run.sh -q 2.1
 
 The second step to implement is to allow a transfer to our support team, more precissly to the support agent 
 **with least numbers of contact** in the campaign B.
-You can retrieve the list of agents from the CRM client and assign to agent by updating the contact after setting 
-the `assignedAgent` property.
+You can retrieve the list of agents from the CRM client using `crm_api.list_agents(team="support")` and assign 
+to an agent by updating the contact after setting  the `assignedAgent` property to the username of the agent.
 
 Again, a test event for this use case is available using the command : 
 
@@ -183,7 +182,7 @@ sh run.sh -q 3.0
 
 #### Q3.1 : Sales from each team
 
-Our sales ops teams needs some insights to complete its reporting, they need the number of sales
+Our sales ops teams needs some insights to complete its reporting, they need the number of sales (table `session`)
 from each team as well as the amount, group by status to identify the number of unsubscription.
 
 To test your implementation, use the following command :
