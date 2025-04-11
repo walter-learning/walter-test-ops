@@ -6,7 +6,7 @@ After cloning the repo, create a new file `.env` from `.env.dist` and fills in t
 variable using the values you were provided with.
 
 Then, ensure you have Docker up and running and run the following command to build and test 
-the lambda environnement :
+the AWS Lambda environnement :
 
 ```bash
 sh run.sh -q 0 -b
@@ -43,7 +43,7 @@ For each question, the corresponding handler can be found at `handlers/question_
 To run the handler of a question, use the following command :
 
 ```bash
-sh run.sh -q X
+sh run.sh -q X.X
 ```
 
 For some question you will be told to use specific question number, for example `2.1`
@@ -79,19 +79,26 @@ We suspect the presence of duplicates between the two campaigns...
 
 #### Q1.1 : Build the list of phone numbers that are present in both campaigns
 
+For this question, you are supposed to only use builtin Python objects and function.
+
+Implement the existing `list_phone_numbers_in_both_campaigns` function that should return a list of string.
+
+Test your code using :
+
+```bash
+sh run.sh -q 1.1
+```
+
 #### Q1.2 : Return the last time each duplicates was called in the two campaigns
 
-The output should respect the following format :
-```
-+33620922865 
-        A: 2025-03-23 06:30:05 
-        B: 2025-03-28 04:47:45
-+33650333176 
-        A: N/A 
-        B: 2025-03-10 23:14:12
-...
-```
+Implement the existing `last_call_date_for_duplicate` function that should return the last time a given phone 
+number was called in each campaign.
 
+Test your code using :
+
+```bash
+sh run.sh -q 1.2
+```
 
 ## Q2. Post call handler
 
@@ -101,7 +108,8 @@ Please open `handlers/question_2.py`
 
 This lambda is called by a webhook from our call provider that is triggered at the end of each call.
 
-The webhook has the following payload, automatically converted to a Python object by the decorator `@lambda_handler` using the following model:
+The webhook has the following payload, automatically converted to a Python object by the decorator `@lambda_handler` 
+using the following model:
 
 ```python
 class Event(BaseEvent):
@@ -139,8 +147,10 @@ sh run.sh -q 2.1
 
 #### Q2.2 : Transfer to our support team
 
-The second step to implement is to allow a transfer to our support team, more precissly to the support agent **with least numbers of contact** in the campaign B.
-You can retrieve the list of agents from the CRM client and assign to agent by updating the contact after setting the `assignedAgent` property.
+The second step to implement is to allow a transfer to our support team, more precissly to the support agent 
+**with least numbers of contact** in the campaign B.
+You can retrieve the list of agents from the CRM client and assign to agent by updating the contact after setting 
+the `assignedAgent` property.
 
 Again, a test event for this use case is available using the command : 
 

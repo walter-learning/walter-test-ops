@@ -31,7 +31,7 @@ class Event(BaseEvent):
 @lambda_handler(model=Event)
 def handle(event: Event, context):
 
-    print(f"🔵 Retrieve contact `{event.contactId}`")
+    print(f"🔵 Retrieve contact `{event.contactId}` from the API")
     voice_contact = (
         voice_api.get_contact(contact_id=event.contactId) if event.contactId else None
     )
@@ -46,7 +46,8 @@ def handle(event: Event, context):
                 event.callBackDate
                 and event.callBackDate <= datetime.today() + timedelta(1)
             ):
-                voice_contact.retryDate = event.callBackDate  # type: ignore
+                print(f"🔵 Update retryDate to `{event.callBackDate}`")
+                voice_contact.retryDate = event.callBackDate
                 voice_api.update_contact(instance=voice_contact)
 
         # ------------------------------------------------------------

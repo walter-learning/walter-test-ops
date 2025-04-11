@@ -34,5 +34,5 @@ class VoiceAPI:
         return Contact.model_validate(response.json())
 
     def update_contact(self, instance: Contact):
-        print("⬆️ Updating voice contact")
-        print(instance.model_dump_json(indent=4))
+        # As a "dummy" API, we will just return the instance
+        return instance
